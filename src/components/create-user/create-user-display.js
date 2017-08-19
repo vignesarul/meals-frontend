@@ -2,7 +2,7 @@ import React from 'react';
 const AlertMessage = (props) => {
   let message = props.message.info;
   if(props.message.error) {
-    message = `${props.message.error.code}: ${props.message.error.source.parameter}`;
+    message = `${props.message.error.code}: ${(props.message.error.source || {}).parameter || ''}`;
   }
   return <div className={`alert alert-${props.message.error ? 'danger' : 'info'}`} role="alert">
     <p className="mb-0">{message}</p>

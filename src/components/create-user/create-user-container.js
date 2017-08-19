@@ -1,9 +1,6 @@
 import { connect } from 'react-redux'
 import CreateUser from 'components/create-user/create-user-display';
 
-// Action
-//const increaseAction = { type: 'increase' }
-
 // Map Redux state to component props
 function mapStateToProps(state) {
   return {

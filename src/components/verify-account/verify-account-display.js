@@ -25,7 +25,7 @@ const VerifyAccount = (props) => {
                   <label>Verification code</label>
                   <input type="text" name="code" className="form-control"/>
                 </div>
-                <button type="submit" disabled={props.isLoading}  className="btn btn-primary">Verify Email</button>
+                <button type="submit" disabled={props.isLoading} className="btn btn-primary">Verify Email</button>
               </form>
             </div>
           </div>
