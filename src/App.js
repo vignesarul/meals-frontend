@@ -10,12 +10,18 @@ import rootSaga from 'redux-sagas';
 
 const sagaMiddleware = createSagaMiddleware();
 
+const updateFromLocalStorage = (defaultState) => {
+  const localState = localStorage.getItem('state');
+  return localState ? JSON.parse(localState) : defaultState;
+};
+
 //Intial storedata
-const initialStore = {
+const initialStore = updateFromLocalStorage({
   error: '',
   info: '',
   isLoading: false,
-};
+});
+
 // Store
 const store = createStore(rootReducer, initialStore, applyMiddleware(sagaMiddleware));
 sagaMiddleware.run(rootSaga);

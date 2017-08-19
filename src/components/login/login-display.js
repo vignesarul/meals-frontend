@@ -9,7 +9,6 @@ const AlertMessage = (props) => {
   </div>
 };
 
-
 class Login extends React.Component {
   componentWillReceiveProps(props) {
     console.log(props)

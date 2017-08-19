@@ -2,7 +2,6 @@ import { connect } from 'react-redux'
 import Login from 'components/login/login-display';
 import _ from 'lodash';
 
-
 // Map Redux state to component props
 function mapStateToProps(state) {
   return _.cloneDeep(state);

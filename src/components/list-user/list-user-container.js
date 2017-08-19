@@ -1,20 +1,19 @@
 import { connect } from 'react-redux'
 import ListUser from 'components/list-user/list-user-display';
-
-// Action
-//const increaseAction = { type: 'increase' }
+import _ from 'lodash';
 
 // Map Redux state to component props
 function mapStateToProps(state) {
-  return {
-    //email: state.email
-  }
+  return _.cloneDeep(state);
 }
 
 // Map Redux actions to component props
 function mapDispatchToProps(dispatch) {
   return {
-    //onIncreaseClick: () => dispatch(increaseAction)
+    retriveUsers: () => {
+      const requestBody = {};
+      dispatch({ type: 'GET_USERS', requestBody})
+    }
   }
 }
 

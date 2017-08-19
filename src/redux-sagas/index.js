@@ -1,13 +1,15 @@
-import { call, put, takeEvery, all } from 'redux-saga/effects';
+import { call, put, takeEvery, all, select } from 'redux-saga/effects';
 import axios from 'axios'
 import _ from 'lodash';
 
 const apiLink = 'http://localhost:3001/api/v1';
+const getToken = (state) => state.token;
 export default function* rootSaga() {
   yield all([
     watchCreateAccount(),
     watchVerifyAccount(),
     watchLogin(),
+    watchGetUsers(),
   ])
 }
 
@@ -40,8 +42,21 @@ function* loginAsync(action) {
   yield put({type: 'LOGIN_RESPONSE', response})
 }
 
-const callApi = (method, url, body) => {
-  return axios[method](`${apiLink}${url}`, body)
+function* watchGetUsers() {
+  yield takeEvery('GET_USERS', getUsersAsync);
+}
+
+function* getUsersAsync(action, state) {
+  const token = yield select(getToken);
+  const response = yield call(callApi, 'get', '/users', undefined, { headers: {
+    authorization: token
+  }});
+  yield put({type: 'GET_USERS_RESPONSE', response})
+}
+
+const callApi = (method, url, body, config = {}) => {
+
+  return axios[method](`${apiLink}${url}`, body || config)
     .then(result => result.data)
     .catch((err) => {
       console.log(err.response.data);
