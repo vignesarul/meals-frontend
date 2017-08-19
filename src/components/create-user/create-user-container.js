@@ -7,14 +7,25 @@ import CreateUser from 'components/create-user/create-user-display';
 // Map Redux state to component props
 function mapStateToProps(state) {
   return {
-    //email: state.email
+    isLoading: state.isLoading,
+    info: state.info,
+    error: state.error,
   }
 }
 
 // Map Redux actions to component props
 function mapDispatchToProps(dispatch) {
   return {
-    //onIncreaseClick: () => dispatch(increaseAction)
+    createAccount: (e) => {
+      e.preventDefault();
+      const requestBody = {
+        firstName: e.target.firstName.value,
+        lastName: e.target.firstName.value,
+        email: e.target.email.value,
+        password: e.target.password.value
+      };
+      dispatch({ type: 'CREATE_ACCOUNT', requestBody})
+    }
   }
 }
 

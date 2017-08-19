@@ -9,8 +9,15 @@ import createSagaMiddleware from 'redux-saga';
 import rootSaga from 'redux-sagas';
 
 const sagaMiddleware = createSagaMiddleware();
+
+//Intial storedata
+const initialStore = {
+  error: '',
+  info: '',
+  isLoading: false,
+};
 // Store
-const store = createStore(rootReducer, undefined, applyMiddleware(sagaMiddleware));
+const store = createStore(rootReducer, initialStore, applyMiddleware(sagaMiddleware));
 sagaMiddleware.run(rootSaga);
 
 class App extends Component {
