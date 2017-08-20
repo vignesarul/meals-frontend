@@ -11,7 +11,6 @@ const AlertMessage = (props) => {
 
 class Login extends React.Component {
   componentWillReceiveProps(props) {
-    console.log(props)
     if ((props.user || {}).id) {
       this.props.history.push('/users');
     }

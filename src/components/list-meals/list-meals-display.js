@@ -11,9 +11,15 @@ const AlertMessage = (props) => {
     <p className="mb-0">{message}</p>
   </div>
 };
-class ListUser extends React.Component {
-  componentWillMount() {
-    this.props.retriveUsers();
+class ListMeals extends React.Component {
+  componentDidMount() {
+    this.props.retriveMeals(this.props.match.params.userId);
+  }
+
+  componentWillReceiveProps(props) {
+    if (props.match.params.userId !== this.props.match.params.userId) {
+      this.props.retriveMeals(props.match.params.userId);
+    }
   }
 
   render() {
@@ -30,21 +36,24 @@ class ListUser extends React.Component {
                   <thead>
                   <tr>
                     <th>#</th>
-                    <th>First Name</th>
-                    <th>Email</th>
+                    <th>Desc</th>
+                    <th>Calories</th>
+                    <th>DailyGoal</th>
                     <th>Action</th>
                   </tr>
                   </thead>
                   <tbody>
-                  {(this.props.usersList || []).map((user) => {
-                    return (<tr key={user.id}>
-                      <td>{user.id}</td>
-                      <td>{user.attributes.firstName}</td>
-                      <td>{user.attributes.email}</td>
+                  {console.log('mealsList', this.props.mealsList)}
+                  {(this.props.mealsList || []).map((meal) => {
+                    return (<tr key={meal.id}>
+                      <td>{meal.id}</td>
+                      <td>{meal.attributes.text}</td>
+                      <td>{meal.attributes.calories}</td>
+                      <td><i className={meal.attributes.dailyGoal ? 'fa fa-check' : 'fa fa-close'}
+                             style={{color: meal.attributes.dailyGoal ? 'green' : 'red'}}></i></td>
                       <td>
-                        <Link to={`/users/edit/${user.id}`}><i className="fa fa-edit"></i></Link>&nbsp;
-                        <Link to={`/users/edit/${user.id}`}><i className="fa fa-trash"></i></Link>&nbsp;
-                        <Link to={`/users/${user.id}/meals`}><i className="fa fa-list"></i></Link>
+                        <Link to={`/users/${meal.userId}/meals/${meal.id}`}><i className="fa fa-edit"></i></Link> &nbsp;
+                        <Link to={`/users/${meal.userId}/meals/${meal.id}`}><i className="fa fa-trash"></i></Link>
                       </td>
                     </tr>);
                   })}
@@ -59,4 +68,4 @@ class ListUser extends React.Component {
   }
 }
 
-export default ListUser;
+export default ListMeals;

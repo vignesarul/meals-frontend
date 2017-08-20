@@ -1,20 +1,30 @@
 import { connect } from 'react-redux'
 import EditUser from 'components/edit-user/edit-user-display';
-
-// Action
-//const increaseAction = { type: 'increase' }
+import _ from 'lodash';
 
 // Map Redux state to component props
 function mapStateToProps(state) {
-  return {
-    //email: state.email
-  }
+  return _.cloneDeep(state);
 }
 
 // Map Redux actions to component props
 function mapDispatchToProps(dispatch) {
   return {
-    //onIncreaseClick: () => dispatch(increaseAction)
+    getUser: (userId) => {
+      const requestBody = {
+        userId,
+      };
+      dispatch({ type: 'GET_USER', requestBody})
+    },
+    updateUser: (e) => {
+      e.preventDefault();
+      const requestBody = {
+        firstName: e.target.firstName.value,
+        expectedCalories: Number(e.target.expectedCalories.value),
+        userId: e.target.userId.value
+      };
+      dispatch({ type: 'EDIT_USER', requestBody})
+    }
   }
 }
 

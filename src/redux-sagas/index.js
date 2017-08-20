@@ -10,6 +10,9 @@ export default function* rootSaga() {
     watchVerifyAccount(),
     watchLogin(),
     watchGetUsers(),
+    watchEditUser(),
+    watchGetUser(),
+    watchGetMeals(),
   ])
 }
 
@@ -46,7 +49,7 @@ function* watchGetUsers() {
   yield takeEvery('GET_USERS', getUsersAsync);
 }
 
-function* getUsersAsync(action, state) {
+function* getUsersAsync() {
   const token = yield select(getToken);
   const response = yield call(callApi, 'get', '/users', undefined, { headers: {
     authorization: token
@@ -54,9 +57,46 @@ function* getUsersAsync(action, state) {
   yield put({type: 'GET_USERS_RESPONSE', response})
 }
 
+function* watchEditUser() {
+  yield takeEvery('EDIT_USER', editUserAsync);
+}
+
+function* editUserAsync(action) {
+  const token = yield select(getToken);
+  console.log('token', action.requestBody);
+  const response = yield call(callApi, 'put', `/users/${action.requestBody.userId}`, action.requestBody, { headers: {
+    authorization: token
+  }});
+  yield put({type: 'EDIT_USER_RESPONSE', response})
+}
+
+function* watchGetUser() {
+  yield takeEvery('GET_USER', getUserAsync);
+}
+
+function* getUserAsync(action) {
+  const token = yield select(getToken);
+  const response = yield call(callApi, 'get', `/users/${action.requestBody.userId}`, { headers: {
+    authorization: token
+  }});
+  yield put({type: 'GET_USER_RESPONSE', response})
+}
+
+function* watchGetMeals() {
+  yield takeEvery('GET_MEALS', getMealsAsync);
+}
+
+function* getMealsAsync(action) {
+  const token = yield select(getToken);
+  const response = yield call(callApi, 'get', `/users/${action.requestBody.userId}/meals`, { headers: {
+    authorization: token
+  }});
+  yield put({type: 'GET_MEALS_RESPONSE', response})
+}
+
 const callApi = (method, url, body, config = {}) => {
 
-  return axios[method](`${apiLink}${url}`, body || config)
+  return axios[method](`${apiLink}${url}`, body || config, config)
     .then(result => result.data)
     .catch((err) => {
       console.log(err.response.data);

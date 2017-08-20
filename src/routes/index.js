@@ -8,6 +8,7 @@ import VerifyAccount from 'components/verify-account/verify-account-container';
 import Login from 'components/login/login-container';
 import EditUser from 'components/edit-user/edit-user-container';
 import ListUser from 'components/list-user/list-user-container';
+import ListMeals from 'components/list-meals/list-meals-container';
 
 const Routes = () => {
   return (<div>
@@ -20,6 +21,7 @@ const Routes = () => {
       <Route path='/auth/login' component={Login}/>
       <Route exact path='/users/edit/:userId' component={EditUser}/>
       <Route exact path='/users' component={ListUser}/>
+      <Route exact path='/users/:userId/meals' component={ListMeals}/>
     </Switch>
   </div>);
 };

@@ -50,6 +50,41 @@ function rootReducer(state, action) {
         isLoading : false,
         usersList: action.response.data,
       }));
+    case 'EDIT_USER':
+      return _.merge(_.cloneDeep(state), { isLoading : true, error: '', info: '' });
+    case 'EDIT_USER_RESPONSE':
+      if (action.response.errors.length > 0) {
+        return _.merge(_.cloneDeep(state), { isLoading : false, error: action.response.errors[0] });
+      }
+      return updateLocalStorage(_.merge(_.cloneDeep(state), {
+        isLoading : false,
+        info: 'User profile updated',
+      }));
+    case 'GET_USER':
+      return _.merge(_.cloneDeep(state), { isLoading : true, error: '', info: '' });
+    case 'GET_USER_RESPONSE':
+      if (action.response.errors.length > 0) {
+        return _.merge(_.cloneDeep(state), { isLoading : false, error: action.response.errors[0] });
+      }
+      console.log('got user', _.merge(_.cloneDeep(state), {
+        isLoading : false,
+        userToEdit: action.response.data[0],
+      }));
+      return updateLocalStorage(_.merge(_.cloneDeep(state), {
+        isLoading : false,
+        userToEdit: action.response.data[0],
+      }));
+    case 'GET_MEALS':
+      return _.merge(_.cloneDeep(state), { isLoading : true, error: '', info: '' });
+    case 'GET_MEALS_RESPONSE':
+      if (action.response.errors.length > 0) {
+        return _.merge(_.cloneDeep(state), { isLoading : false, error: action.response.errors[0], mealsList: null });
+      }
+      console.log('got meals', action.response.data)
+      return updateLocalStorage(_.merge(_.cloneDeep(state), {
+        isLoading : false,
+        mealsList: _.isEmpty(action.response.data) ? null : action.response.data,
+      }));
     default:
       return state
   }
