@@ -13,6 +13,7 @@ export default function* rootSaga() {
     watchEditUser(),
     watchGetUser(),
     watchGetMeals(),
+    watchAddMeal(),
   ])
 }
 
@@ -92,6 +93,19 @@ function* getMealsAsync(action) {
     authorization: token
   }});
   yield put({type: 'GET_MEALS_RESPONSE', response})
+}
+
+function* watchAddMeal() {
+  yield takeEvery('ADD_MEAL', addMealAsync);
+}
+
+function* addMealAsync(action) {
+  const token = yield select(getToken);
+  const response = yield call(callApi, 'post', `/users/${action.requestBody.userId}/meals`,
+    _.omit(action.requestBody, 'userId'), { headers: {
+      authorization: token
+    }});
+  yield put({type: 'ADD_MEAL_RESPONSE', response})
 }
 
 const callApi = (method, url, body, config = {}) => {

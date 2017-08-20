@@ -44,6 +44,7 @@ class ListUser extends React.Component {
                       <td>
                         <Link to={`/users/edit/${user.id}`}><i className="fa fa-edit"></i></Link>&nbsp;
                         <Link to={`/users/edit/${user.id}`}><i className="fa fa-trash"></i></Link>&nbsp;
+                        <Link to={`/users/${user.id}/meals/create`}><i className="fa fa-plus-square"></i></Link>&nbsp;
                         <Link to={`/users/${user.id}/meals`}><i className="fa fa-list"></i></Link>
                       </td>
                     </tr>);

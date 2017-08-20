@@ -43,8 +43,7 @@ class ListMeals extends React.Component {
                   </tr>
                   </thead>
                   <tbody>
-                  {console.log('mealsList', this.props.mealsList)}
-                  {(this.props.mealsList || []).map((meal) => {
+                  {(this.props.isLoading ? [] : (this.props.mealsList || [])).map((meal) => {
                     return (<tr key={meal.id}>
                       <td>{meal.id}</td>
                       <td>{meal.attributes.text}</td>

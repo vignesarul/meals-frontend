@@ -85,6 +85,17 @@ function rootReducer(state, action) {
         isLoading : false,
         mealsList: _.isEmpty(action.response.data) ? null : action.response.data,
       }));
+    case 'ADD_MEAL':
+      return _.merge(_.cloneDeep(state), { isLoading : true, error: '', info: '' });
+    case 'ADD_MEAL_RESPONSE':
+      if (action.response.errors.length > 0) {
+        return _.merge(_.cloneDeep(state), { isLoading : false, error: action.response.errors[0] });
+      }
+      console.log('added meal', action.response.data)
+      return _.merge(_.cloneDeep(state), {
+        isLoading : false,
+        info: 'Meal Added successfully'
+      });
     default:
       return state
   }

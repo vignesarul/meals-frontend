@@ -9,6 +9,7 @@ import Login from 'components/login/login-container';
 import EditUser from 'components/edit-user/edit-user-container';
 import ListUser from 'components/list-user/list-user-container';
 import ListMeals from 'components/list-meals/list-meals-container';
+import AddMeal from 'components/add-meal/add-meal-container';
 
 const Routes = () => {
   return (<div>
@@ -22,6 +23,7 @@ const Routes = () => {
       <Route exact path='/users/edit/:userId' component={EditUser}/>
       <Route exact path='/users' component={ListUser}/>
       <Route exact path='/users/:userId/meals' component={ListMeals}/>
+      <Route exact path='/users/:userId/meals/create' component={AddMeal}/>
     </Switch>
   </div>);
 };
