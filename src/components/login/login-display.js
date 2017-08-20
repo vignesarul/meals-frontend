@@ -12,7 +12,7 @@ const AlertMessage = (props) => {
 class Login extends React.Component {
   componentWillReceiveProps(props) {
     if ((props.user || {}).id) {
-      this.props.history.push('/users');
+      this.props.history.push(`/users/${props.user.id}/meals`);
     }
   }
 

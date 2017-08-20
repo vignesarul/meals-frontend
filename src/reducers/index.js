@@ -96,6 +96,8 @@ function rootReducer(state, action) {
         isLoading : false,
         info: 'Meal Added successfully'
       });
+    case 'LOGOUT':
+      return updateLocalStorage({ isLoading : false, error: '', info: '' })
     default:
       return state
   }

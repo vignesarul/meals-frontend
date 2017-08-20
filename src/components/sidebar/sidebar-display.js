@@ -4,6 +4,9 @@ import { Link } from 'react-router-dom'
 const SideBar = (props) => (<div className="col-md-3">
   <ul className="nav nav-pills flex-column">
     <li className="nav-item">
+      <Link to={`/users/${props.userId}/meals/create`} className="nav-link"><i className="fa fa-home"></i> Add Meal</Link>
+    </li>
+    <li className="nav-item">
       <Link to='/users' className="nav-link"><i className="fa fa-home"></i> List Users</Link>
     </li>
     <li className="nav-item">
