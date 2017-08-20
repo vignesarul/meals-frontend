@@ -1,4 +1,6 @@
 import React from 'react';
+import { Link } from 'react-router-dom'
+
 const AlertMessage = (props) => {
   let message = props.message.info;
   if(props.message.error) {
@@ -38,6 +40,10 @@ class Login extends React.Component {
                   </div>
                   <button type="submit" disabled={this.props.isLoading} className="btn btn-primary">Login</button>
                 </form>
+                <br/>
+                <Link to='/auth/forgot-password' className="btn btn-link btn-sm">Forgot Password</Link>
+                <Link to='/auth/reset-password' className="btn btn-link btn-sm">Reset Password</Link>
+                <Link to='/auth/verify-account' className="btn btn-link btn-sm">Activate Account</Link>
               </div>
             </div>
           </div>
