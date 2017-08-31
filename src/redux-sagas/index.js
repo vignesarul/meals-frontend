@@ -113,7 +113,8 @@ const callApi = (method, url, body, config = {}) => {
   return axios[method](`${apiLink}${url}`, body || config, config)
     .then(result => result.data)
     .catch((err) => {
-      console.log(err.response.data);
-      return err.response.data;
+      const error = err.response ? err.response.data : err;
+      console.log(error);
+      return error;
     })
 };
